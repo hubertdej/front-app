@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import Dashboard from './pages/dashboard';
-import { SocketClient, SessionStorage } from './client';
+import { SocketClient, SessionStorage, LruStorage } from './client';
 import { ClientContext } from './client-context';
 
 const client = new SocketClient(
   'http://localhost:5001',
-  new SessionStorage(),
+  new LruStorage(new SessionStorage(), 1000000),
 );
 
 function App() {
