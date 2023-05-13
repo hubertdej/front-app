@@ -12,7 +12,7 @@ export interface Subscription {
 export interface Client {
   connect: () => void;
   disconnect: () => void;
-  subscribe: (topicId: string, listener: MessageListener) => Subscription;
+  subscribe: (topicId: string, listener: MessageListener, cacheLimit?: number) => Subscription;
 }
 
 export interface Storage {
