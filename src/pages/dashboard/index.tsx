@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import {
   AppLayout,
   BreadcrumbGroup,
@@ -17,7 +17,32 @@ import { exportLayout, getBoardWidgets, getDefaultLayout, getPaletteWidgets } fr
 
 const splitPanelMaxSize = 360;
 
+type TickerSelection = {
+  getSelectedTickers: () => string[];
+  updateSelectedTickers: (id: string, tickers: string[]) => void;
+};
+
+export const TickerSelectionContext = createContext<TickerSelection | undefined>(undefined);
+
 function Dashboard() {
+  const [selectedKeysById, setSelectedKeysById] = useState<Map<string, string[]>>(new Map());
+
+  const getSelectedTickers = () => {
+    let allKeys: string[] = [];
+    selectedKeysById.forEach((keys) => {
+      allKeys = allKeys.concat(keys);
+    });
+    return Array.from(new Set(allKeys));
+  };
+
+  const updateSelectedTickers = (id: string, tickers: string[]) => {
+    setSelectedKeysById((prev) => {
+      const next = new Map(prev);
+      next.set(id, tickers);
+      return next;
+    });
+  };
+
   const [layout, setLayout] = useState(getDefaultLayout);
   const [splitPanelOpen, setSplitPanelOpen] = useState(false);
   const [splitPanelSize, setSplitPanelSize] = useState(splitPanelMaxSize);
@@ -70,7 +95,9 @@ function Dashboard() {
                           setLayout(exportLayout(detail.items));
                         }}
                         renderItem={(item, actions) => (
-                          <ConfigurableWidget config={item.data} onRemove={actions.removeItem} />
+                          <TickerSelectionContext.Provider value={{ getSelectedTickers, updateSelectedTickers }}>
+                            <ConfigurableWidget config={item.data} onRemove={actions.removeItem} />
+                          </TickerSelectionContext.Provider>
                         )}
                     />
                 </ContentLayout>

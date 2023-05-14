@@ -1,25 +1,34 @@
 import { BoardWidgetItem, WidgetConfig, WidgetPlacement } from './interfaces';
-import { sampleWidget } from './sample-widget';
+import { indicesWidget, utilitiesWidget, currenciesWidget } from './table-widget';
+import { chartWidget } from './chart-widget';
 
 const allWidgets: Record<string, WidgetConfig> = {
-  sampleWidget,
+  indicesWidget,
+  utilitiesWidget,
+  chartWidget,
+  currenciesWidget,
 };
 
 const defaultLayout: ReadonlyArray<WidgetPlacement> = [
-  { id: 'sampleWidget' },
+  { id: 'indicesWidget' },
+  { id: 'utilitiesWidget' },
+  { id: 'chartWidget' },
 ];
 
 export function getDefaultLayout() {
-  return defaultLayout;
+  const encodedLayout = sessionStorage.getItem('dashboard-layout');
+  return encodedLayout ? JSON.parse(encodedLayout) : defaultLayout;
 }
 
 export function exportLayout(items: ReadonlyArray<BoardWidgetItem>): ReadonlyArray<WidgetPlacement> {
-  return items.map(item => ({
+  const layout = items.map(item => ({
     id: item.id,
     columnSpan: item.columnSpan,
     columnOffset: item.columnOffset,
     rowSpan: item.rowSpan,
   }));
+  sessionStorage.setItem('dashboard-layout', JSON.stringify(layout));
+  return layout;
 }
 
 export function getBoardWidgets(layout: ReadonlyArray<WidgetPlacement>): BoardWidgetItem[] {
