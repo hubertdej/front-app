@@ -20,7 +20,7 @@ function SampleContent() {
         selectionType='multi'
         onSelectionChange={({ detail }) => setSelectedTickers(new Set(detail.selectedItems.map(item => item.ticker)))}
         selectedItems={items.filter(item => selectedTickers.has(item.ticker))}
-      />
+    />
   );
 }
 
