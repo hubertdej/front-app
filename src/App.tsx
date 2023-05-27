@@ -3,7 +3,7 @@ import Dashboard from './pages/dashboard';
 import { SocketClient, SessionStorage, LruStorage } from './client';
 import { ClientContext } from './client-context';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Root from './pages/root';
+import RootLayout from './pages/root-layout';
 import TickerOverview from './pages/ticker-overview';
 import { loader as tickerOverviewLoader } from './pages/ticker-overview';
 import DummyPage from './pages/dummy-page';
@@ -17,7 +17,7 @@ const client = new SocketClient(
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: <RootLayout />,
     children: [
       {
         index: true,
