@@ -14,8 +14,8 @@ function TickerSearchbar() {
       value={value}
       options={data.map(obj => ({ value: obj.Name, description: obj.Symbol }))}
       enteredTextLabel={val => `Use: "${val}"`}
-      ariaLabel="Search for a ticker"
-      placeholder="Search for a ticker"
+      ariaLabel="Search for a name or ticker"
+      placeholder="Search for a name or ticker"
       empty="No matches found"
     />
   );
