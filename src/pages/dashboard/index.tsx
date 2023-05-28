@@ -16,6 +16,7 @@ import { ConfigurableWidget } from './components/configurable-widget';
 import { exportLayout, getBoardWidgets, getDefaultLayout, getPaletteWidgets } from './widgets';
 import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 import { WidgetPlacement } from './widgets/interfaces';
+import useLocalStorage from '../../hooks/use-local-storage';
 
 const splitPanelMaxSize = 360;
 
@@ -28,11 +29,6 @@ export async function loader({ params } : LoaderFunctionArgs) {
   return { dashboardId };
 }
 
-const saveLayoutStoreToLocalStorage = (layoutStore: Map<string, ReadonlyArray<WidgetPlacement>>) => {
-  const layoutsData = JSON.stringify(Array.from(layoutStore.entries()));
-  localStorage.setItem('dashboardLayouts', layoutsData);
-};
-
 const defaultLayoutStore = new Map<string, ReadonlyArray<WidgetPlacement>>([
   ['1', getDefaultLayout()],
   ['2', getDefaultLayout()],
@@ -41,25 +37,13 @@ const defaultLayoutStore = new Map<string, ReadonlyArray<WidgetPlacement>>([
 
 function Dashboard() {
   const { dashboardId } = useLoaderData() as Params;
-  const [layoutStore, setLayoutStore] = useState<Map<string, ReadonlyArray<WidgetPlacement>>>(defaultLayoutStore);
+  const [layoutStore, setLayoutStore] = useLocalStorage<Map<string, ReadonlyArray<WidgetPlacement>>>(
+    'dashboardLayoutStore',
+    defaultLayoutStore,
+    (map: Map<string, ReadonlyArray<WidgetPlacement>>) => JSON.stringify(Array.from(map.entries())),
+    (json: string) => new Map<string, ReadonlyArray<WidgetPlacement>>(JSON.parse(json)));
   const [splitPanelOpen, setSplitPanelOpen] = useState(false);
   const [splitPanelSize, setSplitPanelSize] = useState(splitPanelMaxSize);
-
-  const updateLayoutStore = (id: string, layout: ReadonlyArray<WidgetPlacement>) => {
-    setLayoutStore(prevLayoutStore => {
-      const updatedLayoutStore = new Map(prevLayoutStore).set(id, layout);
-      saveLayoutStoreToLocalStorage(updatedLayoutStore);
-      return updatedLayoutStore;
-    });
-  };
-
-  useEffect(() => {
-    const storedLayoutStoreData = localStorage.getItem('dashboardLayouts');
-    if (storedLayoutStoreData) {
-      const storedLayoutStore = new Map<string, ReadonlyArray<WidgetPlacement>>(JSON.parse(storedLayoutStoreData));
-      setLayoutStore(storedLayoutStore);
-    }
-  }, []);
 
   return (
         <AppLayout
@@ -106,7 +90,7 @@ function Dashboard() {
                         i18nStrings={boardI18nStrings}
                         items={getBoardWidgets(layoutStore.get(dashboardId) || getDefaultLayout())}
                         onItemsChange={({ detail }) => {
-                          updateLayoutStore(dashboardId, exportLayout(detail.items));
+                          setLayoutStore(new Map(layoutStore).set(dashboardId, exportLayout(detail.items)));
                         }}
                         renderItem={(item, actions) => (
                           <ConfigurableWidget config={item.data} onRemove={actions.removeItem} />
