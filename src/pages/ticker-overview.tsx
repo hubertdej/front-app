@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { useLoaderData } from 'react-router-dom';
-import { LoaderFunctionArgs } from 'react-router-dom';
-
+import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 
 type Params = {
   ticker:string
