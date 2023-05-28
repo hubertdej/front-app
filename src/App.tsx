@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './pages/root-layout';
 import TickerOverview from './pages/ticker-overview';
 import { loader as tickerOverviewLoader } from './pages/ticker-overview';
+import { loader as dashboardLoader } from './pages/dashboard/index';
 import DummyPage from './pages/dummy-page';
 
 
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/:dashboardId',
         element: <Dashboard />,
+        loader: dashboardLoader,
       },
     ],
   },
