@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppLayout,
   BreadcrumbGroup,
@@ -28,6 +28,11 @@ export async function loader({ params } : LoaderFunctionArgs) {
   return { dashboardId };
 }
 
+const saveLayoutStoreToLocalStorage = (layoutStore: Map<string, ReadonlyArray<WidgetPlacement>>) => {
+  const layoutsData = JSON.stringify(Array.from(layoutStore.entries()));
+  localStorage.setItem('dashboardLayouts', layoutsData);
+};
+
 const defaultLayoutStore = new Map<string, ReadonlyArray<WidgetPlacement>>([
   ['1', getDefaultLayout()],
   ['2', getDefaultLayout()],
@@ -41,8 +46,20 @@ function Dashboard() {
   const [splitPanelSize, setSplitPanelSize] = useState(splitPanelMaxSize);
 
   const updateLayoutStore = (id: string, layout: ReadonlyArray<WidgetPlacement>) => {
-    setLayoutStore(new Map(layoutStore).set(dashboardId, layout));
+    setLayoutStore(prevLayoutStore => {
+      const updatedLayoutStore = new Map(prevLayoutStore).set(id, layout);
+      saveLayoutStoreToLocalStorage(updatedLayoutStore);
+      return updatedLayoutStore;
+    });
   };
+
+  useEffect(() => {
+    const storedLayoutStoreData = localStorage.getItem('dashboardLayouts');
+    if (storedLayoutStoreData) {
+      const storedLayoutStore = new Map<string, ReadonlyArray<WidgetPlacement>>(JSON.parse(storedLayoutStoreData));
+      setLayoutStore(storedLayoutStore);
+    }
+  }, []);
 
   return (
         <AppLayout
