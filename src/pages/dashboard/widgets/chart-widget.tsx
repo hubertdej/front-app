@@ -1,8 +1,9 @@
-import { Header, Select } from '@cloudscape-design/components';
+import { Button, Header, Select } from '@cloudscape-design/components';
 import { IChartApi, LineData, UTCTimestamp } from 'lightweight-charts';
 import React, { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect, useRef, useState } from 'react';
 import Chart from '../../../components/chart';
 import { useBars } from '../../../database/use-bars';
+import { updateBars } from '../../../database/use-bars/update-bars';
 import { TokenId, useDesignTokens } from '../../../hooks/use-design-token';
 import { TIME_PERIODS, TimePeriod, isFineGrained } from '../../../models/time-period';
 import { WidgetConfig } from './interfaces';
@@ -93,13 +94,37 @@ function WidgetContent() {
   );
 }
 
+function WidgetHeader() {
+  const [period] = useContext(WidgetContext);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  return (
+    <Header
+      actions={[
+        <Button
+          key='refresh'
+          variant='icon'
+          iconName='refresh'
+          disabled={isRefreshing}
+          onClick={async () => {
+            setIsRefreshing(true);
+            await updateBars(TICKERS, period);
+            setIsRefreshing(false);
+          }}
+        />,
+      ]}>
+      Chart
+    </Header>
+  );
+}
+
 export const chartWidget: WidgetConfig = {
   definition: { defaultRowSpan: 4, defaultColumnSpan: 2 },
   data: {
     title: 'Chart',
     description: 'Line chart displaying historical data',
     provider: PeriodProvider,
-    header: () => <Header>Chart</Header>,
+    header: WidgetHeader,
     content: WidgetContent,
     footer: WidgetFooter,
   },
