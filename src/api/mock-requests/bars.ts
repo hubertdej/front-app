@@ -1,3 +1,4 @@
+import { Bar } from '../../models/bar';
 import { BarRequest, BarResponse } from '../types';
 
 const dateRegex = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
@@ -13,7 +14,23 @@ function randomPeriod() {
   return Math.random() * (periodRange[1] - periodRange[0]) + periodRange[0];
 }
 
-export async function getBars({ ticker, start, end, interval }: BarRequest): Promise<BarResponse> {
+function generateRandomDataForTicker(ticker: string, dates: string[]): Bar[] {
+  const amplitude = randomAmplitude();
+  const periods = Array.from({ length: 6 }).map(() => randomPeriod());
+
+  return dates.map((dateTime, index) => ({
+    ticker,
+    dateTime,
+    open: Math.sin(index / periods[0]) * amplitude,
+    high: Math.sin(index / periods[1]) * amplitude,
+    low: Math.sin(index / periods[2]) * amplitude,
+    close: Math.sin(index / periods[3]) * amplitude,
+    adjClose: Math.sin(index / periods[4]) * amplitude,
+    volume: Math.sin(index / periods[5]) * amplitude,
+  }));
+}
+
+export async function getBars({ tickers, start, end, interval }: BarRequest): Promise<BarResponse> {
   if (window.navigator.onLine === false) {
     throw new Error('No internet connection');
   }
@@ -45,19 +62,11 @@ export async function getBars({ ticker, start, end, interval }: BarRequest): Pro
     }
   }
 
-  console.log('Mocking API request', { ticker, start, end, interval }, 'total data points: ', dates.length);
+  console.log('Mocking API request', { tickers, start, end, interval }, 'total data points: ', dates.length);
 
-  const amplitude = randomAmplitude();
-  const periods = Array.from({ length: 6 }).map(() => randomPeriod());
-
-  return dates.map((dateTime, index) => ({
-    ticker,
-    dateTime,
-    open: Math.sin(index / periods[0]) * amplitude,
-    high: Math.sin(index / periods[1]) * amplitude,
-    low: Math.sin(index / periods[2]) * amplitude,
-    close: Math.sin(index / periods[3]) * amplitude,
-    adjClose: Math.sin(index / periods[4]) * amplitude,
-    volume: Math.sin(index / periods[5]) * amplitude,
-  }));
+  const result = new Array<Bar>();
+  new Set(tickers).forEach(ticker => {
+    result.push(...generateRandomDataForTicker(ticker, dates));
+  });
+  return result;
 }

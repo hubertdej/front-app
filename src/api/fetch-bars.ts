@@ -15,11 +15,11 @@ function roundUp(date: Date): string {
 
 // Fetches the data for a given ticker and date range.
 // Date range is inclusive.
-export async function fetchBars(ticker: string, start: Date, end: Date, fineGrained: boolean): Promise<Bar[]> {
-  console.log(`fetchBars(${ticker}, ${start.toISOString()}, ${end.toISOString()}, ${fineGrained})`);
+export async function fetchBars(tickers: string[], start: Date, end: Date, fineGrained: boolean): Promise<Bar[]> {
+  console.log(`fetchBars(${tickers}, ${start.toISOString()}, ${end.toISOString()}, ${fineGrained})`);
 
   const response = await getBars({
-    ticker,
+    tickers,
     start: roundDown(start),
     end: roundUp(end),
     interval: fineGrained ? '15m' : '1d',

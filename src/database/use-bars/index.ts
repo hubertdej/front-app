@@ -12,7 +12,7 @@ export function useBars(tickers: string[], period: TimePeriod): Record<string, B
 
   useEffect(() => {
     if (isOnline) {
-      tickers.forEach(ticker => updateBars(ticker, period));
+      updateBars(tickers, period);
     }
   }, [isOnline, tickers, period]);
 
