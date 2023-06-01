@@ -1,12 +1,15 @@
+import { chartWidget } from './chart-widget';
 import { BoardWidgetItem, WidgetConfig, WidgetPlacement } from './interfaces';
 import { sampleWidget } from './sample-widget';
 
 const allWidgets: Record<string, WidgetConfig> = {
   sampleWidget,
+  chartWidget,
 };
 
 const defaultLayout: ReadonlyArray<WidgetPlacement> = [
   { id: 'sampleWidget' },
+  { id: 'chartWidget' },
 ];
 
 export function getDefaultLayout() {
