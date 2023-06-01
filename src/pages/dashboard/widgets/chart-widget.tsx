@@ -3,7 +3,7 @@ import { IChartApi, LineData, UTCTimestamp } from 'lightweight-charts';
 import React, { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect, useRef, useState } from 'react';
 import Chart from '../../../components/chart';
 import { useBars } from '../../../database/use-bars';
-import { useDesignToken } from '../../../hooks/use-design-token';
+import { TokenId, useDesignTokens } from '../../../hooks/use-design-token';
 import { TIME_PERIODS, TimePeriod, isFineGrained } from '../../../models/time-period';
 import { WidgetConfig } from './interfaces';
 
@@ -33,15 +33,20 @@ function WidgetFooter() {
 
 const TICKERS = ['AAPL', 'GOOGL'];
 
-function WidgetContent() {
-  const colors = [
-    useDesignToken('colorChartsPaletteCategorical1'),
-    useDesignToken('colorChartsPaletteCategorical2'),
-    useDesignToken('colorChartsPaletteCategorical3'),
-    useDesignToken('colorChartsPaletteCategorical4'),
-    useDesignToken('colorChartsPaletteCategorical5'),
-  ];
+const CHART_COLOR_TOKENS: TokenId[] = [
+  'colorChartsPaletteCategorical1',
+  'colorChartsPaletteCategorical2',
+  'colorChartsPaletteCategorical3',
+  'colorChartsPaletteCategorical4',
+  'colorChartsPaletteCategorical5',
+  'colorChartsPaletteCategorical6',
+  'colorChartsPaletteCategorical7',
+  'colorChartsPaletteCategorical8',
+  'colorChartsPaletteCategorical9',
+];
 
+function WidgetContent() {
+  const colors = useDesignTokens(CHART_COLOR_TOKENS);
   const [period] = useContext(WidgetContext);
   const barsForTickers = useBars(TICKERS, period);
   const chartRef = useRef<IChartApi>(null);
@@ -76,7 +81,7 @@ function WidgetContent() {
         try { chart.removeSeries(series); } catch {}
       });
     };
-  }, [barsForTickers, ...colors]);
+  }, [barsForTickers, colors]);
 
   return (
     <Chart

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useVisualMode } from './use-visual-mode';
 import * as designTokens from '@cloudscape-design/design-tokens';
 
@@ -12,13 +12,18 @@ function computeTokenValue(tokenId: TokenId, target: HTMLElement = document.body
   return value;
 }
 
-export function useDesignToken(tokenId: TokenId, target: HTMLElement = document.body) {
-  const [tokenValue, setTokenValue] = useState<string>(() => computeTokenValue(tokenId, target));
+export function useDesignTokens(tokenIds: TokenId[], target: HTMLElement = document.body) {
+  const [tokenValues, setTokenValues] = useState<string[]>(() => tokenIds.map(tokenId => computeTokenValue(tokenId, target)));
   const mode = useVisualMode(target);
 
   useEffect(() => {
-    setTokenValue(computeTokenValue(tokenId, target));
-  }, [tokenId, target, mode]);
+    setTokenValues(tokenIds.map(tokenId => computeTokenValue(tokenId, target)));
+  }, [tokenIds, target, mode]);
 
-  return tokenValue;
+  return tokenValues;
+}
+
+export function useDesignToken(tokenId: TokenId, target: HTMLElement = document.body) {
+  const tokenIdMemoed = useMemo(() => [tokenId], [tokenId]);
+  return useDesignTokens(tokenIdMemoed, target)[0];
 }
