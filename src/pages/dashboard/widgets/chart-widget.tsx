@@ -46,6 +46,13 @@ const CHART_COLOR_TOKENS: TokenId[] = [
   'colorChartsPaletteCategorical9',
 ];
 
+const changeFormatter = new Intl.NumberFormat(navigator.language, {
+  style: 'percent',
+  signDisplay: 'always',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 function WidgetContent() {
   const colors = useDesignTokens(CHART_COLOR_TOKENS);
   const [period] = useContext(WidgetContext);
@@ -62,18 +69,21 @@ function WidgetContent() {
     }
     const chart = chartRef.current;
 
-    const allSeries = Object.entries(barsForTickers).map(([ticker, bars], index) => {
-      const data: LineData[] = bars.map(({ dateTime, adjClose }) => ({
-        time: Date.parse(dateTime) / 1000 as UTCTimestamp,
-        value: adjClose,
-      }));
-      const series = chart.addLineSeries({
-        title: ticker,
-        color: colors[index % colors.length],
+    const allSeries = Object.entries(barsForTickers)
+      .filter(([, bars]) => bars.length > 0)
+      .map(([ticker, bars], index) => {
+        const data: LineData[] = bars.map(({ dateTime, adjClose }) => ({
+          time: Date.parse(dateTime) / 1000 as UTCTimestamp,
+          value: adjClose,
+        }));
+        const change = (data[data.length - 1].value - data[0].value) / data[0].value;
+        const series = chart.addLineSeries({
+          title: `${ticker} ${changeFormatter.format(change)}`,
+          color: colors[index % colors.length],
+        });
+        series.setData(data);
+        return series;
       });
-      series.setData(data);
-      return series;
-    });
 
     chart.timeScale().fitContent();
 
