@@ -1,15 +1,11 @@
 import React, { MouseEventHandler } from 'react';
 
-interface PlusButtonProps {
-  onClick: MouseEventHandler<HTMLButtonElement>;
-}
-
-const PlusButton: React.FC<PlusButtonProps> = ({ onClick }) => {
+function PlusButton(props:{ onClick: MouseEventHandler }) {
   return (
-    <button  className='plus-button' onClick={onClick}>
-        +
-    </button>
+        <button  className='plus-button' onClick={props.onClick}>
+            +
+        </button>
   );
-};
+}
 
 export default PlusButton;

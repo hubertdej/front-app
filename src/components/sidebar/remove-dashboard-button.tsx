@@ -1,14 +1,8 @@
 import React, { MouseEventHandler } from 'react';
 
-interface RemoveButtonProps {
-  onClick: MouseEventHandler<HTMLButtonElement>;
-}
-
-const RemoveButton: React.FC<RemoveButtonProps> = ({ onClick }) => {
+function RemoveButton(props:{ onClick: MouseEventHandler }) {
   return (
-    <button  className='remove-button' onClick={onClick}>
-    </button>
+      <button  className='remove-button' onClick={props.onClick} />
   );
-};
-
+}
 export default RemoveButton;
