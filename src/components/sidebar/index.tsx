@@ -5,31 +5,31 @@ import PlusButton from './add-dashboard-button';
 import './index.css';
 import RemoveButton from './remove-dashboard-button';
 
-function getDashboardIdsFromLocalStorage():ReadonlyArray<string> {
+function getDashboardIdsFromLocalStorage():ReadonlyArray<number> {
   const dashboardIds = [];
   for (const key in localStorage) {
     if (/^\d+$/.test(key)) {
-      dashboardIds.push(key);
+      dashboardIds.push(parseInt(key, 10));
     }
   }
-  dashboardIds.sort();
+  dashboardIds.sort((a, b) => a - b);
   return dashboardIds;
 }
 function Sidebar() {
-  const [dashboards, setDashboards] = React.useState<ReadonlyArray<string>>(getDashboardIdsFromLocalStorage());
+  const [dashboards, setDashboards] = React.useState(getDashboardIdsFromLocalStorage());
   const [activeHref, setActiveHref] = React.useState('');
   const navigate = useNavigate();
 
   const addDashboard = () => {
-    const newDashboardId:string = Math.max(...dashboards.map(id => parseInt(id, 10)), 0) + 1 + '';
+    const newDashboardId = Math.max(...dashboards, 0) + 1;
     setDashboards([...dashboards, newDashboardId]);
     setActiveHref(`/dashboard/${newDashboardId}`);
     navigate(`/dashboard/${newDashboardId}`);
   };
 
-  const removeDashboard = (id:string) => {
+  const removeDashboard = (id:number) => {
     const newDashboards = dashboards.filter(dashboardId => dashboardId !== id);
-    localStorage.removeItem(id);
+    localStorage.removeItem(id.toString(10));
     setDashboards(newDashboards);
     if (newDashboards.length > 0) {
       setActiveHref(`/dashboard/${newDashboards[0]}`);
