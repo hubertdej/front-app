@@ -1,0 +1,29 @@
+.plus-button {
+  background: #fff;
+  border: 2px solid #095776;
+  font-weight: 900;
+  color: #095776;
+  cursor: pointer;
+}
+.plus-button:hover {
+    background-color: #0056b3;
+    transition: 0.2s;
+    color: #fff;
+}
+
+.remove-button {
+    background: #fff;
+    border: 2px solid #095776;
+    font-weight: 900;
+    color: #095776;
+    cursor: pointer;
+  }
+ .remove-button:hover {
+    background-color: #0056b3;
+    transition: 0.2s;
+    color: #fff;
+ }
+
+ .remove-button:after {
+    content: "\00d7";
+ }

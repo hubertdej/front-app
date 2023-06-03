@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   AppLayout,
   BreadcrumbGroup,
@@ -14,7 +14,7 @@ import { boardI18nStrings, splitPanelI18nStrings } from './i18n-strings';
 import Palette from './components/palette';
 import { ConfigurableWidget } from './components/configurable-widget';
 import { exportLayout, getBoardWidgets, getDefaultLayout, getPaletteWidgets } from './widgets';
-import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import useLocalStorage from '../../hooks/use-local-storage';
 
 const splitPanelMaxSize = 360;
