@@ -5,7 +5,7 @@ import PlusButton from './add-dashboard-button';
 import './index.css';
 import RemoveButton from './remove-dashboard-button';
 
-function getDashboardIdsFromLocalStorage():ReadonlyArray<number> {
+function getDashboardIdsFromLocalStorage(): ReadonlyArray<number> {
   const dashboardIds = [];
   for (const key in localStorage) {
     if (/^\d+$/.test(key)) {
@@ -15,6 +15,7 @@ function getDashboardIdsFromLocalStorage():ReadonlyArray<number> {
   dashboardIds.sort((a, b) => a - b);
   return dashboardIds;
 }
+
 function Sidebar() {
   const [dashboards, setDashboards] = React.useState(getDashboardIdsFromLocalStorage());
   const [activeHref, setActiveHref] = React.useState('');
@@ -27,7 +28,7 @@ function Sidebar() {
     navigate(`/dashboard/${newDashboardId}`);
   };
 
-  const removeDashboard = (id:number) => {
+  const removeDashboard = (id: number) => {
     const newDashboards = dashboards.filter(dashboardId => dashboardId !== id);
     localStorage.removeItem(id.toString(10));
     setDashboards(newDashboards);

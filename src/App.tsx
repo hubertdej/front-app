@@ -58,7 +58,7 @@ function App() {
 
   return (
     <ClientContext.Provider value={client}>
-      <RouterProvider router={router}></RouterProvider>
+      <RouterProvider router={router} />
     </ClientContext.Provider>
   );
 }

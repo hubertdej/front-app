@@ -18,8 +18,7 @@ function Topbar() {
         overflowMenuDismissIconAriaLabel: 'Close menu',
       }}
       search={
-        <TickerSearchbar
-        />
+        <TickerSearchbar/>
       }
     />
   );

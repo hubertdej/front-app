@@ -2,10 +2,10 @@ import * as React from 'react';
 import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 
 type Params = {
-  ticker:string
+  ticker: string
 };
 
-export async function loader({ params } : LoaderFunctionArgs) {
+export async function loader({ params }: LoaderFunctionArgs) {
   const ticker = params.ticker;
   return { ticker };
 }

@@ -19,12 +19,12 @@ import useLocalStorage from '../../hooks/use-local-storage';
 
 const splitPanelMaxSize = 360;
 
-export async function loader({ params } : LoaderFunctionArgs) {
+export async function loader({ params }: LoaderFunctionArgs) {
   const dashboardId = params.dashboardId;
   return { dashboardId };
 }
 
-function DashboardContent( props:{ dashboardId:string } ) {
+function DashboardContent( props: { dashboardId: string } ) {
   const dashboardId = props.dashboardId;
   const [layout, setLayout] = useLocalStorage(dashboardId, getDefaultLayout);
   const [splitPanelOpen, setSplitPanelOpen] = useState(false);
@@ -40,7 +40,7 @@ function DashboardContent( props:{ dashboardId:string } ) {
               ]}
               expandAriaLabel="Show path"
               ariaLabel="Breadcrumbs"
-          />}
+                       />}
           navigationHide={true}
           toolsHide={true}
           content={
@@ -58,7 +58,8 @@ function DashboardContent( props:{ dashboardId:string } ) {
                       >
                           Dashboard {dashboardId}
                       </Header>
-                  }>
+                  }
+              >
                   <Board
                       empty={
                           <EmptyState
@@ -88,7 +89,8 @@ function DashboardContent( props:{ dashboardId:string } ) {
                   header="Add widgets"
                   closeBehavior="hide"
                   hidePreferencesButton={true}
-                  i18nStrings={splitPanelI18nStrings}>
+                  i18nStrings={splitPanelI18nStrings}
+              >
                   <Palette items={getPaletteWidgets(layout)} />
               </SplitPanel>
           }
@@ -102,10 +104,10 @@ function DashboardContent( props:{ dashboardId:string } ) {
 }
 
 function Dashboard() {
-  const { dashboardId } = useLoaderData() as { dashboardId:string };
+  const { dashboardId } = useLoaderData() as { dashboardId: string };
   return (
         <div key={dashboardId}>
-            <DashboardContent  dashboardId={dashboardId}/>
+            <DashboardContent dashboardId={dashboardId}/>
         </div>
   );
 }

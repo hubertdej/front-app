@@ -20,7 +20,17 @@
     "plugin:react-hooks/recommended"
   ],
   "rules": {
-    "eol-last": ["error", "always"]
+    "@typescript-eslint/key-spacing": "error",
+    "@typescript-eslint/type-annotation-spacing": "error",
+    "eol-last": "error",
+    "no-multi-spaces": "error",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "block-like", "next": "block-like" }
+    ],
+    "react/jsx-closing-bracket-location": "error",
+    "react/jsx-closing-tag-location": "error",
+    "react/self-closing-comp": "error"
   },
   "env": {
     "browser": true,
