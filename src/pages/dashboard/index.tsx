@@ -35,8 +35,8 @@ function DashboardContent( props:{ dashboardId:string } ) {
           contentType="dashboard"
           breadcrumbs={<BreadcrumbGroup
               items={[
-                { text: 'App', href: '#' },
-                { text: 'Dashboard', href: '#/' },
+                { text: 'App', href: '/' },
+                { text: `Dashboard ${dashboardId}`, href: '#/' },
               ]}
               expandAriaLabel="Show path"
               ariaLabel="Breadcrumbs"
