@@ -4,6 +4,7 @@ import { BoardProps } from '@cloudscape-design/board-components/board';
 export interface WidgetDataType {
   title: string;
   description: string;
+  provider?: React.JSXElementConstructor<{ children: React.ReactElement }>;
   header: React.JSXElementConstructor<Record<string, never>>;
   content: React.JSXElementConstructor<Record<string, never>>;
   footer?: React.JSXElementConstructor<Record<string, never>>;

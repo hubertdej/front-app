@@ -11,7 +11,9 @@ interface ConfigurableWidgetProps {
 }
 
 export function ConfigurableWidget({ config, onRemove }: ConfigurableWidgetProps) {
+  const Wrapper = config.provider ?? React.Fragment;
   return (
+    <Wrapper>
       <BoardItem
         header={<config.header />}
         i18nStrings={boardItemI18nStrings}
@@ -33,5 +35,6 @@ export function ConfigurableWidget({ config, onRemove }: ConfigurableWidgetProps
       >
         <config.content />
       </BoardItem>
+    </Wrapper>
   );
 }
