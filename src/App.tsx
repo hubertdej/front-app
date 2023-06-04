@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Dashboard from './pages/dashboard';
 import { SocketClient, SessionStorage, LruStorage } from './client';
 import { ClientContext } from './client-context';

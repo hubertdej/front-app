@@ -1,10 +1,10 @@
-import React, { MouseEventHandler } from 'react';
+import { MouseEventHandler } from 'react';
 
 function PlusButton(props: { onClick: MouseEventHandler }) {
   return (
-        <button className='plus-button' onClick={props.onClick}>
-            +
-        </button>
+    <button className='plus-button' onClick={props.onClick}>
+      +
+    </button>
   );
 }
 

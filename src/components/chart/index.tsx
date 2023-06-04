@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { ChartOptions, DeepPartial, IChartApi } from 'lightweight-charts';
 import { useDesignToken } from '../../hooks/use-design-token';
 import RawChart from './raw-chart';

@@ -17,16 +17,22 @@
     "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime"
   ],
   "rules": {
+    "key-spacing": "off",
     "@typescript-eslint/key-spacing": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/type-annotation-spacing": "error",
     "eol-last": "error",
+    "indent": ["error", 2],
     "no-multi-spaces": "error",
+    "no-trailing-spaces": "error",
     "padding-line-between-statements": [
       "error",
-      { "blankLine": "always", "prev": "block-like", "next": "block-like" }
+      { "blankLine": "always", "prev": "function", "next": "function" }
     ],
     "react/jsx-closing-bracket-location": "error",
     "react/jsx-closing-tag-location": "error",

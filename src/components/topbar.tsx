@@ -1,4 +1,3 @@
-import * as React from 'react';
 import TopNavigation from '@cloudscape-design/components/top-navigation';
 import TickerSearchbar from './ticker-searchbar/ticker-searchbar';
 

@@ -1,13 +1,13 @@
-import React from 'react';
+import { ReactElement, JSXElementConstructor } from 'react';
 import { BoardProps } from '@cloudscape-design/board-components/board';
 
 export interface WidgetDataType {
   title: string;
   description: string;
-  provider?: React.JSXElementConstructor<{ children: React.ReactElement }>;
-  header: React.JSXElementConstructor<Record<string, never>>;
-  content: React.JSXElementConstructor<Record<string, never>>;
-  footer?: React.JSXElementConstructor<Record<string, never>>;
+  provider?: JSXElementConstructor<{ children: ReactElement }>;
+  header: JSXElementConstructor<Record<string, never>>;
+  content: JSXElementConstructor<Record<string, never>>;
+  footer?: JSXElementConstructor<Record<string, never>>;
 }
 
 export type BoardWidgetItem = BoardProps.Item<WidgetDataType>;

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
 import BoardItem from '@cloudscape-design/board-components/board-item';
 import { WidgetDataType } from '../widgets/interfaces';
@@ -11,7 +11,7 @@ interface ConfigurableWidgetProps {
 }
 
 export function ConfigurableWidget({ config, onRemove }: ConfigurableWidgetProps) {
-  const Wrapper = config.provider ?? React.Fragment;
+  const Wrapper = config.provider ?? Fragment;
   return (
     <Wrapper>
       <BoardItem
