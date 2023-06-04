@@ -1,7 +1,7 @@
 import TopNavigation from '@cloudscape-design/components/top-navigation';
-import TickerSearchbar from './ticker-searchbar/ticker-searchbar';
+import TickerSearchbar from './ticker-searchbar';
 
-function Topbar() {
+function TopBar() {
   return (
     <TopNavigation
       identity={{
@@ -23,4 +23,4 @@ function Topbar() {
   );
 }
 
-export default Topbar;
+export default TopBar;

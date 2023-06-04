@@ -1,4 +1,5 @@
 import { Bar } from '../models/bar';
+import { TickerDetails } from '../models/ticker-details';
 
 export type BarRequest = {
   tickers: string[];
@@ -8,3 +9,9 @@ export type BarRequest = {
 };
 
 export type BarResponse = Bar[];
+
+export type TickerSearchRequest = {
+  query: string
+};
+
+export type TickerSearchResponse = Record<string, TickerDetails[]>;
