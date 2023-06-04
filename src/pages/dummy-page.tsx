@@ -1,10 +1,9 @@
-import * as React from 'react';
 
 function DummyPage() {
   return (
-        <div>
-        <h1>🚧Under construction🚧</h1>
-        </div>
+    <div>
+      <h1>🚧Under construction🚧</h1>
+    </div>
   );
 }
 

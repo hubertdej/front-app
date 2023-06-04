@@ -1,11 +1,11 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Autosuggest from '@cloudscape-design/components/autosuggest';
 import { useNavigate } from 'react-router-dom';
 import data from './sp500-companies.json';
 
 
 function TickerSearchbar() {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = useState('');
   const navigate = useNavigate();
   return (
     <Autosuggest

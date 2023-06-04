@@ -27,12 +27,12 @@ export class LruStorage implements Storage {
 
   setItem(key: string, value: string): void {
     const newItemSize = key.length + value.length;
-    
+
     if (newItemSize > this.maxBytes) {
       console.log(`[LruStorage] Trying to insert an item that is too large (${newItemSize}), skipping`);
       return;
     }
-    
+
     this.removeItem(key);
 
     while (this.bytesUsed + newItemSize > this.maxBytes) {

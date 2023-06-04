@@ -11,7 +11,7 @@ class CounterMap {
   private set(key: string, value: number) {
     this.counters.set(key, value);
     return value;
-  } 
+  }
 
   increment(key: string) {
     return this.set(key, this.get(key) + 1);
@@ -28,9 +28,9 @@ class CounterMap {
 
 class MaxMap {
   private readonly defaultValue: number;
-  
+
   private readonly cacheLimits = new Map<string, number>();
-  
+
   constructor(defaultValue: number) {
     this.defaultValue = defaultValue;
   }

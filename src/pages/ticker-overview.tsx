@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 
 type Params = {

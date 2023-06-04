@@ -1,13 +1,13 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Box, SpaceBetween } from '@cloudscape-design/components';
 import styles from './styles.module.scss';
 
 interface EmptyStateProps {
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   title: string;
   verticalCenter?: boolean;
   description: string;
-  action?: React.ReactNode;
+  action?: ReactNode;
 }
 
 export function EmptyState({ title, description, action, verticalCenter }: EmptyStateProps) {

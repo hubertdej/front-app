@@ -1,4 +1,3 @@
-import React from 'react';
 import Header from '@cloudscape-design/components/header';
 import BoardItem from '@cloudscape-design/board-components/board-item';
 import Box from '@cloudscape-design/components/box';

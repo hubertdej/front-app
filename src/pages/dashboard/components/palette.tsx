@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, SpaceBetween, TextFilter } from '@cloudscape-design/components';
 import ItemsPalette, { ItemsPaletteProps } from '@cloudscape-design/board-components/items-palette';
 import { useCollection } from '@cloudscape-design/collection-hooks';

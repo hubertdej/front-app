@@ -1,6 +1,6 @@
 import { Button, Header, Select } from '@cloudscape-design/components';
 import { IChartApi, LineData, UTCTimestamp } from 'lightweight-charts';
-import React, { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect, useRef, useState } from 'react';
+import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect, useRef, useState } from 'react';
 import Chart from '../../../components/chart';
 import { useBars } from '../../../database/use-bars';
 import { updateBars } from '../../../database/use-bars/update-bars';
@@ -122,7 +122,8 @@ function WidgetHeader() {
             setIsRefreshing(false);
           }}
         />,
-      ]}>
+      ]}
+    >
       Chart
     </Header>
   );

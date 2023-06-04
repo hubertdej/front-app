@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import SideNavigation from '@cloudscape-design/components/side-navigation';
 import { useNavigate } from 'react-router-dom';
 import PlusButton from './add-dashboard-button';
@@ -17,8 +17,8 @@ function getDashboardIdsFromLocalStorage(): ReadonlyArray<number> {
 }
 
 function Sidebar() {
-  const [dashboards, setDashboards] = React.useState(getDashboardIdsFromLocalStorage());
-  const [activeHref, setActiveHref] = React.useState('');
+  const [dashboards, setDashboards] = useState(getDashboardIdsFromLocalStorage());
+  const [activeHref, setActiveHref] = useState('');
   const navigate = useNavigate();
 
   const addDashboard = () => {

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { AppLayout } from '@cloudscape-design/components';
 import Sidebar from '../../components/sidebar';
 import { Outlet } from 'react-router-dom';
@@ -8,21 +7,20 @@ import './index.css';
 
 function RootLayout() {
   return (
-        <>
-            <div id="top-nav">
-                <Topbar />
-            </div>
-            <AppLayout 
-                headerSelector='#top-nav'
-                navigation={<Sidebar />}
-                toolsHide={true}
-                disableContentPaddings={true}
-                content={
-                    <Outlet />
-                }
-            />
-
-        </>
+    <>
+      <div id="top-nav">
+        <Topbar />
+      </div>
+      <AppLayout
+        headerSelector='#top-nav'
+        navigation={<Sidebar />}
+        toolsHide={true}
+        disableContentPaddings={true}
+        content={
+          <Outlet />
+        }
+      />
+    </>
   );
 }
 
