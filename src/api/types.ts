@@ -1,4 +1,5 @@
 import { Bar } from '../models/bar';
+import { Mover } from '../models/mover';
 import { TickerDetails } from '../models/ticker-details';
 
 export type BarRequest = {
@@ -15,3 +16,5 @@ export type TickerSearchRequest = {
 };
 
 export type TickerSearchResponse = Record<string, TickerDetails[]>;
+
+export type MoversResponse = { gainers: Mover[], losers: Mover[] };

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BarRequest, BarResponse, TickerSearchRequest, TickerSearchResponse } from './types';
+import { BarRequest, BarResponse, MoversResponse, TickerSearchRequest, TickerSearchResponse } from './types';
 
 const API_BASE_URL = 'http://localhost:5002';
 
@@ -21,6 +21,15 @@ export async function getTickers(data: TickerSearchRequest): Promise<TickerSearc
     url: '/search',
     method: 'POST',
     data,
+  });
+  return response.data;
+}
+
+export async function getMovers(): Promise<MoversResponse> {
+  const response = await instance.request({
+    url: '/movers',
+    method: 'GET',
+    timeout: 5000,
   });
   return response.data;
 }
