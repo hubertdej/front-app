@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import SideNavigation from '@cloudscape-design/components/side-navigation';
 import { useNavigate } from 'react-router-dom';
-import PlusButton from './add-dashboard-button';
-import './index.css';
-import RemoveButton from './remove-dashboard-button';
+import { Button } from '@cloudscape-design/components';
 
 function getDashboardIdsFromLocalStorage(): ReadonlyArray<number> {
   const dashboardIds = [];
@@ -60,13 +58,13 @@ function Sidebar() {
           type: 'link-group',
           text: 'Dashboards',
           href: '#',
-          info: <PlusButton onClick={addDashboard}/>,
+          info: <Button iconName={'add-plus'} variant={'inline-icon'} onClick={addDashboard}/>,
           items: dashboards.map(id => (
             {
               type: 'link',
               text: `Dashboard ${id}`,
               href: `/dashboard/${id}`,
-              info: <RemoveButton onClick={() => removeDashboard(id)}/>,
+              info: <Button iconName={'close'} variant={'inline-icon'} onClick={() => removeDashboard(id)}/>,
             }
           )),
         },
