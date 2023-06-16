@@ -8,7 +8,7 @@ import TickerOverview from './pages/ticker-overview';
 import { loader as tickerOverviewLoader } from './pages/ticker-overview';
 import { loader as dashboardLoader } from './pages/dashboard/index';
 import DummyPage from './pages/dummy-page';
-
+import MarketMovers from './pages/market-movers';
 
 const client = new SocketClient(
   'http://localhost:5001',
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/movers',
-        element: <DummyPage />,
+        element: <MarketMovers />,
       },
       {
         path: '/watchlist',

@@ -1,0 +1,13 @@
+@use '@cloudscape-design/design-tokens' as awsui;
+
+.animated {
+  border-radius: 5px;
+  transition:
+    background-color
+    awsui.$motion-duration-responsive
+    awsui.$motion-easing-responsive;
+
+  &.highlighted {
+    background-color: awsui.$color-drag-placeholder-hover;
+  }
+}
