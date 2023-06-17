@@ -1,0 +1,18 @@
+.small-gray-text {
+    font-size: 10px;
+    color: gray;
+}
+
+.show-more-less-clickable {
+    color: gray;
+    text-underline-mode: solid;
+}
+
+.key {
+    color: gray;
+}
+
+.value {
+    float: right;
+    font-weight: bold;
+}

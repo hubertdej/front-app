@@ -1,5 +1,18 @@
 import axios from 'axios';
-import { BarRequest, BarResponse, MoversResponse, TickerDetailsRequest, TickerDetailsResponse, TickerSearchRequest, TickerSearchResponse } from './types';
+import {
+  BarRequest,
+  BarResponse,
+  EquityDetailsResponse,
+  EquityNewsResponse,
+  TickerSearchRequest,
+  TickerSearchResponse,
+  MoversResponse,
+  TickerDetailsRequest,
+  TickerDetailsResponse,
+} from './types';
+import { BasicPriceInfo } from '../models/basic-price-info';
+import { EquityKeyStats } from '../models/equity-key-stats';
+import { EquityEarningsInfo } from '../models/equity-earnings-info';
 
 const API_BASE_URL = 'http://localhost:5002';
 
@@ -40,6 +53,52 @@ export async function getTickerDetails(data: TickerDetailsRequest): Promise<Tick
     method: 'POST',
     data,
     timeout: 10000,
+  });
+  return response.data;
+}
+
+export async function getEquityDetails(data: TickerSearchRequest): Promise<EquityDetailsResponse> {
+  const response = await instance.request({
+    url: '/equity-details',
+    method: 'POST',
+    data,
+  });
+  if (response.data.length > 0)
+    return response.data[0];
+  return null;
+}
+
+export async function getEquityNews(data: TickerSearchRequest): Promise<EquityNewsResponse> {
+  const response = await instance.request({
+    url: '/equity-news',
+    method: 'POST',
+    data,
+  });
+  return response.data;
+}
+
+export async function getBasicPriceInfo(data: TickerSearchRequest): Promise<BasicPriceInfo> {
+  const response = await instance.request({
+    url: '/basic-price-info',
+    method: 'POST',
+    data,
+  });
+  return response.data;
+}
+
+export async function getEquityKeyStats(data: TickerSearchRequest): Promise<EquityKeyStats> {
+  const response = await instance.request({
+    url: '/equity-key-stats',
+    method: 'POST',
+    data,
+  });
+  return response.data;
+}
+export async function getEquityEarningsInfo(data: TickerSearchRequest): Promise<EquityEarningsInfo> {
+  const response = await instance.request({
+    url: '/equity-earnings-info',
+    method: 'POST',
+    data,
   });
   return response.data;
 }
