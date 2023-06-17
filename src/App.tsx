@@ -4,11 +4,12 @@ import { SocketClient, SessionStorage, LruStorage } from './client';
 import { ClientContext } from './client-context';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './pages/root-layout';
-import TickerOverview from './pages/ticker-overview';
-import { loader as tickerOverviewLoader } from './pages/ticker-overview';
+import { loader as tickerOverviewLoader } from './pages/equity-overview';
 import { loader as dashboardLoader } from './pages/dashboard/index';
 import DummyPage from './pages/dummy-page';
 import MarketMovers from './pages/market-movers';
+import EquityOverview from './pages/equity-overview';
+
 
 const client = new SocketClient(
   'http://localhost:5001',
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/stock/:ticker',
-        element: <TickerOverview />,
+        element: <EquityOverview/>,
         loader: tickerOverviewLoader,
       },
       {
