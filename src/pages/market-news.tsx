@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react';
 import { fetchNews } from '../api/fetch-news';
 import { News } from '../models/news';
-import { ColumnLayout, Container, Header, Link, SpaceBetween, Tabs } from '@cloudscape-design/components';
+import {
+  AppLayout, BreadcrumbGroup,
+  ColumnLayout,
+  Container,
+  ContentLayout,
+  Header,
+  Link,
+  SpaceBetween,
+  Tabs,
+} from '@cloudscape-design/components';
 
 function NewsContainer(props: { query: string, when: number, entries: number, header: string }) {
   const [news, setNews] = useState<News[]>([]);
@@ -88,48 +97,59 @@ function WorldEconomyTab() {
   );
 }
 
-
-
 function MarketNews() {
   return (
-    <div style={{ padding: '10px 10px 10px 10px' }}>
-      <Tabs
-        tabs={[
-          {
-            label: 'Top News',
-            id: 'top_news',
-            content: <TopNewsTab />,
-          },
-          {
-            label: 'Global Markets',
-            id: 'global_markets',
-            content: <GlobalMarketsTab />,
-          },
-          {
-            label: 'Corporate Events',
-            id: 'corporate_events',
-            content: <CorporateEventsTab />,
-          },
-          {
-            label: 'Industries',
-            id: 'industries',
-            content: <IndustriesTab />,
-          },
-          {
-            label: 'Macro',
-            id: 'macro',
-            content: <MacroTab />,
-          },
-          {
-            label: 'World Economy',
-            id: 'world_economy',
-            content: <WorldEconomyTab />,
-          },
-        ]}
-        variant="container"
-      />
-    </div>
-
+    <AppLayout
+      breadcrumbs={
+        <BreadcrumbGroup
+          items={[
+            { text: 'App', href: '/' },
+            { text: 'Market News', href: '/news' },
+          ]}
+        />
+      }
+      navigationHide={true}
+      toolsHide={true}
+      content={
+        <ContentLayout>
+          <Tabs
+            tabs={[
+              {
+                label: 'Top News',
+                id: 'top_news',
+                content: <TopNewsTab />,
+              },
+              {
+                label: 'Global Markets',
+                id: 'global_markets',
+                content: <GlobalMarketsTab />,
+              },
+              {
+                label: 'Corporate Events',
+                id: 'corporate_events',
+                content: <CorporateEventsTab />,
+              },
+              {
+                label: 'Industries',
+                id: 'industries',
+                content: <IndustriesTab />,
+              },
+              {
+                label: 'Macro',
+                id: 'macro',
+                content: <MacroTab />,
+              },
+              {
+                label: 'World Economy',
+                id: 'world_economy',
+                content: <WorldEconomyTab />,
+              },
+            ]}
+            variant="container"
+          />
+        </ContentLayout>
+      }
+    />
   );
 }
 
