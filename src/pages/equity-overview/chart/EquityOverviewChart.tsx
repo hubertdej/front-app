@@ -3,6 +3,7 @@ import { IChartApi, LineData, UTCTimestamp } from 'lightweight-charts';
 import { TokenId, useDesignTokens } from '../../../hooks/use-design-token';
 import { useBars } from '../../../database/use-bars';
 import Chart from '../../../components/chart';
+import { isFineGrained, TimePeriod } from '../../../models/time-period';
 
 
 const CHART_COLOR_TOKENS: TokenId[] = [
@@ -24,11 +25,15 @@ const changeFormatter = new Intl.NumberFormat(navigator.language, {
   maximumFractionDigits: 2,
 });
 
-function EquityOverviewChart(props: { ticker: string }) {
+function EquityOverviewChart(props: { ticker: string, period: TimePeriod }) {
   const ticker = useMemo(() => [props.ticker], [props.ticker]);
   const chartRef = useRef<IChartApi>(null);
   const colors = useDesignTokens(CHART_COLOR_TOKENS);
-  const barsForTickers = useBars(ticker, 'YTD');
+  const barsForTickers = useBars(ticker, props.period);
+
+  useEffect(() => {
+    chartRef.current?.applyOptions({ timeScale: { timeVisible: isFineGrained(props.period) } });
+  }, [props.period]);
 
   useEffect(() => {
     if (!chartRef.current) {
