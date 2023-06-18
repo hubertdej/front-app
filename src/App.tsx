@@ -9,6 +9,7 @@ import { loader as tickerOverviewLoader } from './pages/ticker-overview';
 import { loader as dashboardLoader } from './pages/dashboard/index';
 import DummyPage from './pages/dummy-page';
 import MarketMovers from './pages/market-movers';
+import Watchlist from './pages/watchlist';
 
 const client = new SocketClient(
   'http://localhost:5001',
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/watchlist',
-        element: <DummyPage />,
+        element: <Watchlist />,
       },
       {
         path: '/stock/:ticker',

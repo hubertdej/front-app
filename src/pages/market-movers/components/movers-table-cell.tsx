@@ -1,9 +1,9 @@
 import * as awsui from '@cloudscape-design/design-tokens';
+import { FlashingSpan } from '../../../components/flashing-span';
 import { TickerLink } from '../../../components/ticker-link';
 import { Mover } from '../../../models/mover';
 import { formatNumberDefault, formatNumberWithMagnitude, formatPercentageWithSign } from '../../../utils/formatting';
 import { MoverTableVariant } from '../types';
-import { FlashingSpan } from './flashing-span';
 
 export interface MoversTableCellProps {
   item: Mover;

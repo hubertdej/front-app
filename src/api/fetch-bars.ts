@@ -17,7 +17,9 @@ function roundUp(date: Date): string {
 // Date range is inclusive.
 export async function fetchBars(tickers: string[], start: Date, end: Date, fineGrained: boolean): Promise<Bar[]> {
   console.log(`fetchBars(${tickers}, ${start.toISOString()}, ${end.toISOString()}, ${fineGrained})`);
-
+  if (tickers.length === 0) {
+    return [];
+  }
   const response = await getBars({
     tickers,
     start: roundDown(start),

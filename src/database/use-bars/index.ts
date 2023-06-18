@@ -37,5 +37,5 @@ export function useBars(tickers: string[], period: TimePeriod): Record<string, B
         entries => Object.fromEntries(entries),
       )
     ))
-  ), [tickers, table, startKey], {});
+  ), [tickers, table, startKey], Object.fromEntries(tickers.map(ticker => [ticker, []])));
 }
