@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 
 export interface FlashingSpanProps {
   value: string | number
-  className?: string
+  style?: CSSProperties
 }
 
-export function FlashingSpan({ value, className = '' }: FlashingSpanProps) {
+export function FlashingSpan({ value, style }: FlashingSpanProps) {
   const [isHighlighted, setIsHighlighted] = useState(false);
   const previousValueRef = useRef<string | number | null>(null);
 
@@ -20,7 +20,7 @@ export function FlashingSpan({ value, className = '' }: FlashingSpanProps) {
   }, [value]);
 
   return (
-    <span className={`${styles.animated} ${isHighlighted ? styles.highlighted : ''} ${className}`}>
+    <span className={`${styles.animated} ${isHighlighted ? styles.highlighted : ''}`} style={style}>
       {value}
     </span>
   );

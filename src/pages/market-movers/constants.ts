@@ -22,7 +22,7 @@ export const MAIN_COLUMNS: ReadonlyArray<keyof Mover> = [
 
 export const PAGE_SIZE_OPTIONS = [10, 20, 50];
 
-export const COLUMN_NAMES: Record<keyof Mover, string> = {
+export const COLUMN_NAMES: Record<typeof COLUMNS[number], string> = {
   symbol: 'Symbol',
   name: 'Name',
   priceIntraday: 'Price (Intraday)',

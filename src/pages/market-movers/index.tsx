@@ -20,7 +20,6 @@ function MarketMovers() {
           ariaLabel="Breadcrumbs"
         />
       }
-      contentType="cards"
       content={
         <ContentLayout
           header={
