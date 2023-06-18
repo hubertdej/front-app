@@ -1,10 +1,10 @@
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { CollectionPreferencesProps, Header, Pagination, Spinner, Table, TableProps } from '@cloudscape-design/components';
 import { upperFirst } from 'lodash';
-import { Mover } from '../../../../models/mover';
-import { COLUMNS, COLUMN_NAMES } from '../../constants';
-import Cell from './cell';
-import { MoverTableVariant } from './types';
+import { Mover } from '../../../models/mover';
+import { COLUMNS, COLUMN_NAMES } from '../constants';
+import { MoverTableVariant } from '../types';
+import MoversTableCell from './movers-table-cell';
 
 export interface MoversTableProps {
   data?: Mover[];
@@ -17,7 +17,7 @@ function MoversTable({ data, preferences, variant }: MoversTableProps) {
     id: column,
     sortingField: column,
     header: COLUMN_NAMES[column],
-    cell: item => <Cell variant={variant} item={item} column={column} />,
+    cell: item => <MoversTableCell variant={variant} item={item} column={column} />,
   }));
 
   const sortingField: keyof Mover = 'percentChange';

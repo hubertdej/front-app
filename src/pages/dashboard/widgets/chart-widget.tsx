@@ -6,6 +6,7 @@ import { useBars } from '../../../database/use-bars';
 import { updateBars } from '../../../database/use-bars/update-bars';
 import { TokenId, useDesignTokens } from '../../../hooks/use-design-token';
 import { TIME_PERIODS, TimePeriod, isFineGrained } from '../../../models/time-period';
+import { formatPercentageWithSign } from '../../../utils/formatting';
 import { WidgetConfig } from './interfaces';
 
 const DEFAULT_PERIOD: TimePeriod = 'YTD';
@@ -46,13 +47,6 @@ const CHART_COLOR_TOKENS: TokenId[] = [
   'colorChartsPaletteCategorical9',
 ];
 
-const changeFormatter = new Intl.NumberFormat(navigator.language, {
-  style: 'percent',
-  signDisplay: 'always',
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-
 function WidgetContent() {
   const colors = useDesignTokens(CHART_COLOR_TOKENS);
   const [period] = useContext(WidgetContext);
@@ -78,7 +72,7 @@ function WidgetContent() {
         }));
         const change = (data[data.length - 1].value - data[0].value) / data[0].value;
         const series = chart.addLineSeries({
-          title: `${ticker} ${changeFormatter.format(change)}`,
+          title: `${ticker} ${formatPercentageWithSign(change)}`,
           color: colors[index % colors.length],
         });
         series.setData(data);
