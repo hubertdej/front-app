@@ -5,14 +5,14 @@ import { ClientContext } from './client-context';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './pages/root-layout';
 import { loader as tickerOverviewLoader } from './pages/equity-overview';
+import { loader as financialsLoader } from './pages/Financials';
 import { loader as dashboardLoader } from './pages/dashboard/index';
-import DummyPage from './pages/dummy-page';
 import MarketOverview from './pages/market-overview';
 import MarketMovers from './pages/market-movers';
 import MarketNews from './pages/market-news';
 import Watchlist from './pages/watchlist';
 import EquityOverview from './pages/equity-overview';
-
+import Financials from './pages/Financials';
 
 const client = new SocketClient(
   'http://localhost:5001',
@@ -44,6 +44,11 @@ const router = createBrowserRouter([
         path: '/stock/:ticker',
         element: <EquityOverview/>,
         loader: tickerOverviewLoader,
+      },
+      {
+        path: '/financials/:ticker',
+        element: <Financials />,
+        loader: financialsLoader,
       },
       {
         path: '/dashboard/:dashboardId',
