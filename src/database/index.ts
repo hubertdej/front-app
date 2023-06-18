@@ -8,6 +8,7 @@ const BARS_TABLE_NAME = 'bars';
 const NARROW_BARS_TABLE_NAME = 'narrowBars';
 const MOVERS_TABLE_NAME = 'movers';
 const TICKER_DETAILS_TABLE_NAME = 'tickerDetails';
+const FAVORITES_TABLE_NAME = 'favorites';
 
 const TICKER_KEY: keyof Bar = 'ticker';
 const DATE_TIME_KEY: keyof Bar = 'dateTime';
@@ -24,6 +25,7 @@ export class Database extends Dexie {
       [NARROW_BARS_TABLE_NAME]: BARS_INDEX,
       [MOVERS_TABLE_NAME]: '',
       [TICKER_DETAILS_TABLE_NAME]: TICKER_DETAILS_INDEX,
+      [FAVORITES_TABLE_NAME]: '',
     });
   }
 
@@ -37,6 +39,10 @@ export class Database extends Dexie {
 
   getTickerDetailsTable() {
     return this.table<TickerDetails>(TICKER_DETAILS_TABLE_NAME);
+  }
+
+  getFavoritesTable() {
+    return this.table<string>(FAVORITES_TABLE_NAME);
   }
 }
 

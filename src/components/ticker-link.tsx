@@ -6,6 +6,6 @@ interface TickerLinkProps {
 
 export function TickerLink({ ticker }: TickerLinkProps) {
   return (
-    <Link href={`stock/${ticker}`}>{ticker}</Link>
+    <Link href={`/stock/${ticker}`}>{ticker}</Link>
   );
 }

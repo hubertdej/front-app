@@ -8,6 +8,7 @@ import TickerOverview from './pages/ticker-overview';
 import { loader as tickerOverviewLoader } from './pages/ticker-overview';
 import { loader as dashboardLoader } from './pages/dashboard/index';
 import DummyPage from './pages/dummy-page';
+import MarketOverview from './pages/market-overview';
 import MarketMovers from './pages/market-movers';
 import Watchlist from './pages/watchlist';
 
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DummyPage />,
+        element: <MarketOverview />,
       },
       {
         path: '/news',
