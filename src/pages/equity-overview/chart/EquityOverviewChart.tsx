@@ -66,7 +66,7 @@ function EquityOverviewChart(props: { ticker: string, period: TimePeriod }) {
     };
   }, [barsForTickers, colors]);
 
-  return <Chart ref={chartRef} />;
+  return <Chart ref={chartRef} handleScroll={false} handleScale={false} timeScale={{ minBarSpacing: 0 }}/>;
 }
 
 export default EquityOverviewChart;
