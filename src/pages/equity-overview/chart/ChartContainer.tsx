@@ -1,14 +1,26 @@
-import { ColumnLayout, Container } from '@cloudscape-design/components';
+import { ColumnLayout, Container, Select } from '@cloudscape-design/components';
 import EquityOverviewChart from './EquityOverviewChart';
 import { BasicPriceInfo } from '../../../models/basic-price-info';
 import { prettyNumber } from '../utilities';
+import { TIME_PERIODS, TimePeriod } from '../../../models/time-period';
+import { useState } from 'react';
+
+const PERIOD_OPTIONS = TIME_PERIODS.map(period => ({ value: period }));
 
 function ChartContainer(props: { ticker: string, basicPriceInfo: BasicPriceInfo | null }) {
   const basicPriceInfo = props.basicPriceInfo;
+  const [period, setPeriod] = useState<TimePeriod>('YTD');
   return (
     <Container fitHeight={true}>
+      <div style={{ width: 80 }}>
+        <Select
+          options={PERIOD_OPTIONS}
+          selectedOption={{ value: period }}
+          onChange={({ detail }) => setPeriod(detail.selectedOption.value as TimePeriod)}
+        />
+      </div>
       <div style={{ height: 400 }}>
-        <EquityOverviewChart ticker={props.ticker}/>
+        <EquityOverviewChart ticker={props.ticker} period={period}/>
       </div>
       <ColumnLayout columns={2} borders={'all'}>
         <div>
