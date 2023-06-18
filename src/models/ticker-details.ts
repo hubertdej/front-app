@@ -1,4 +1,5 @@
 export type TickerDetails = {
   symbol: string;
-  name: string;
+  name?: string;
+  previousClose?: number;
 };

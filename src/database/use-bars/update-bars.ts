@@ -3,6 +3,15 @@ import { TimePeriod, getDateRange, isFineGrained } from '../../models/time-perio
 import { TICKER_INDEX, db } from '..';
 import { groupBy } from 'lodash';
 
+function getDateKey(date: Date): string {
+  // Omitting the time portion of the date allows for better batching
+  return date.toISOString().split('T')[0];
+}
+
+function getRangeKey(range: { currentStart: Date, currentEnd: Date }) {
+  return `${getDateKey(range.currentStart)}-${getDateKey(range.currentEnd)}`;
+}
+
 export async function updateBars(tickers: string[], period: TimePeriod) {
   const table = db.getBarsTable(isFineGrained(period));
 
@@ -11,19 +20,29 @@ export async function updateBars(tickers: string[], period: TimePeriod) {
       tickers.map(async ticker => {
         const first = await table.where(TICKER_INDEX).equals(ticker).first();
         const last = await table.where(TICKER_INDEX).equals(ticker).last();
-        const currentStart = first && new Date(first.dateTime);
-        const currentEnd = last && new Date(last.dateTime);
-        return { ticker, currentStart, currentEnd };
+        if (!first || !last) {
+          return { ticker, type: 'new' as const };
+        }
+        const currentStart = new Date(first.dateTime);
+        const currentEnd = new Date(last.dateTime);
+        return { ticker, currentStart, currentEnd, type: 'existing' as const };
       }),
     )
   ));
 
-  const batches = groupBy(ranges, range => `${range.currentStart}-${range.currentEnd}`);
+  const newTickers = ranges
+    .filter(r => r.type === 'new')
+    .map(r => r.ticker);
 
-  const tickerBatches = Object.values(batches).map(group => ({
+  const existingTickerRanges = ranges
+    .filter(r => r.type === 'existing') as { ticker: string, currentStart: Date, currentEnd: Date }[];
+
+  const grouped = groupBy(existingTickerRanges, r => getRangeKey(r));
+
+  const existingTickerBatches = Object.values(grouped).map(group => ({
     tickerBatch: group.map(({ ticker }) => ticker),
-    currentStart: group[0]?.currentStart,
-    currentEnd: group[0]?.currentEnd,
+    currentStart: Math.min(...group.map(range => range.currentStart.getTime())),
+    currentEnd: Math.max(...group.map(range => range.currentEnd.getTime())),
   }));
 
   const updateBarsOnInterval = async (tickerBatch: string[], start: Date, end: Date) => {
@@ -33,16 +52,14 @@ export async function updateBars(tickers: string[], period: TimePeriod) {
 
   const [start, end] = getDateRange(period);
 
-  for (const { tickerBatch, currentStart, currentEnd } of tickerBatches) {
-    if (currentStart === undefined || currentEnd === undefined) {
-      await updateBarsOnInterval(tickerBatch, start, end);
-      return;
+  await updateBarsOnInterval(newTickers, start, end);
+
+  for (const { tickerBatch, currentStart, currentEnd } of existingTickerBatches) {
+    if (start.getTime() < currentStart) {
+      await updateBarsOnInterval(tickerBatch, start, new Date(currentStart - 1));
     }
-    if (start < currentStart) {
-      await updateBarsOnInterval(tickerBatch, start, new Date(currentStart.getTime() - 1));
-    }
-    if (end > currentEnd) {
-      await updateBarsOnInterval(tickerBatch, new Date(currentEnd.getTime() + 1), end);
+    if (end.getTime() > currentEnd) {
+      await updateBarsOnInterval(tickerBatch, new Date(currentEnd + 1), end);
     }
   }
 }

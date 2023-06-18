@@ -18,3 +18,7 @@ export type TickerSearchRequest = {
 export type TickerSearchResponse = Record<string, TickerDetails[]>;
 
 export type MoversResponse = { gainers: Mover[], losers: Mover[] };
+
+export type TickerDetailsRequest = { tickers: string[] };
+
+export type TickerDetailsResponse = TickerDetails[];

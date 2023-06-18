@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BarRequest, BarResponse, MoversResponse, TickerSearchRequest, TickerSearchResponse } from './types';
+import { BarRequest, BarResponse, MoversResponse, TickerDetailsRequest, TickerDetailsResponse, TickerSearchRequest, TickerSearchResponse } from './types';
 
 const API_BASE_URL = 'http://localhost:5002';
 
@@ -30,6 +30,16 @@ export async function getMovers(): Promise<MoversResponse> {
     url: '/movers',
     method: 'GET',
     timeout: 5000,
+  });
+  return response.data;
+}
+
+export async function getTickerDetails(data: TickerDetailsRequest): Promise<TickerDetailsResponse> {
+  const response = await instance.request({
+    url: '/details',
+    method: 'POST',
+    data,
+    timeout: 10000,
   });
   return response.data;
 }
