@@ -1,0 +1,57 @@
+[
+  {
+    "symbol": "XLC",
+    "name": "Comm. Services",
+    "description": "This ETF tracks the communications sector, including companies involved in telecommunications, media, and entertainment."
+  },
+  {
+    "symbol": "XLY",
+    "name": "Consumer Discretionary",
+    "description": "This ETF tracks the consumer discretionary sector, including companies involved in industries such as retail, media, and leisure."
+  },
+  {
+    "symbol": "XLP",
+    "name": "Consumer Staples",
+    "description": "This ETF tracks the consumer staples sector, including companies involved in industries such as food and beverage, household products, and personal care."
+  },
+  {
+    "symbol": "XLE",
+    "name": "Energy",
+    "description": "This ETF tracks the energy sector, including companies involved in industries such as oil, gas, and alternative energy."
+  },
+  {
+    "symbol": "XLF",
+    "name": "Financials",
+    "description": "This ETF tracks the financials sector, including companies involved in industries such as banking, insurance, and investment services."
+  },
+  {
+    "symbol": "XLV",
+    "name": "Health Care",
+    "description": "This ETF tracks the health care sector, including companies involved in industries such as pharmaceuticals, biotechnology, and health care equipment."
+  },
+  {
+    "symbol": "XLI",
+    "name": "Industrials",
+    "description": "This ETF tracks the industrials sector, including companies involved in industries such as aerospace, defense, and manufacturing."
+  },
+  {
+    "symbol": "XLB",
+    "name": "Materials",
+    "description": "This ETF tracks the materials sector, including companies involved in industries such as chemicals, construction materials, and packaging."
+  },
+  {
+    "symbol": "XLRE",
+    "name": "Real Estate",
+    "description": "This ETF tracks the real estate sector, including companies involved in industries such as residential and commercial real estate development, management, and investment."
+  },
+  {
+    "symbol": "XLK",
+    "name": "Technology",
+    "description": "This ETF tracks the technology sector, including companies involved in industries such as software, hardware, and telecommunications."
+  },
+  {
+    "symbol": "XLU",
+    "name": "Utilities",
+    "description": "This ETF tracks the utilities sector, including companies involved in industries such as electric utilities, water utilities, and renewable energy."
+  }
+]

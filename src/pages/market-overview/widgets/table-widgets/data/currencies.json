@@ -1,0 +1,22 @@
+[
+  {
+    "symbol": "JPYUSD=X",
+    "name": "Japanese Yen",
+    "description": "The Japanese Yen is the official currency of Japan and is widely used in foreign exchange trading. It is influenced by factors such as the monetary policy of the Bank of Japan, economic indicators, and geopolitical developments."
+  },
+  {
+    "symbol": "GBPUSD=X",
+    "name": "British Pound",
+    "description": "The British Pound is the currency of the United Kingdom. It is influenced by factors such as the economic performance of the UK, monetary policy decisions by the Bank of England, and political developments related to Brexit."
+  },
+  {
+    "symbol": "BTC-USD",
+    "name": "Bitcoin",
+    "description": "Bitcoin is a decentralized digital currency that operates on a peer-to-peer network. It is influenced by factors such as market demand, adoption rates, regulatory developments, and investor sentiment towards cryptocurrencies."
+  },
+  {
+    "symbol": "EURUSD=X",
+    "name": "Euro",
+    "description": "The Euro is the official currency of the Eurozone, which consists of multiple European Union member states. It is influenced by factors such as the monetary policy of the European Central Bank, economic indicators, and political events within the Eurozone."
+  }
+]

@@ -11,7 +11,7 @@ export function formatPercentageWithSign(value: number): string {
     signDisplay: 'always',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(value / 100);
+  }).format(value);
 }
 
 export function formatNumberWithMagnitude(value: number): string {

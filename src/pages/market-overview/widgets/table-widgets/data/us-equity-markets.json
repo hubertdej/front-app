@@ -1,0 +1,22 @@
+[
+  {
+    "symbol": "^DJI",
+    "name": "Dow Jones Industrial Average",
+    "description": "The Dow Jones Industrial Average (INDU) is a stock market index that measures the performance of 30 large, publicly-owned companies in the United States."
+  },
+  {
+    "symbol": "^GSPC",
+    "name": "S&P 500 Index",
+    "description": "The S&P 500 Index (SPX) is a stock market index that measures the performance of 500 large companies listed on stock exchanges in the United States."
+  },
+  {
+    "symbol": "^NDX",
+    "name": "NASDAQ 100 Index",
+    "description": "The NASDAQ 100 Index (NDX) is a stock market index that includes the 100 largest non-financial companies listed on the NASDAQ stock exchange."
+  },
+  {
+    "symbol": "IWM",
+    "name": "iShares Russell 2000 ETF",
+    "description": "The iShares Russell 2000 ETF (IWM) is an exchange-traded fund that aims to track the performance of the Russell 2000 Index, which is composed of 2000 small-cap U.S. stocks."
+  }
+]
