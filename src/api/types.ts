@@ -19,6 +19,12 @@ export type TickerSearchRequest = {
   query: string
 };
 
+export type NewsSearchRequest = {
+  term: string,
+  when: number;
+  limit: number,
+};
+
 export type TickerSearchResponse = Record<string, TickerDetails[]>;
 export type EquityDetailsResponse = EquityDetails | null;
 export type EquityNewsResponse = EquityNews[];

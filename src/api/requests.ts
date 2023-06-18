@@ -9,10 +9,12 @@ import {
   TickerDetailsResponse,
   TickerSearchRequest,
   TickerSearchResponse,
+  NewsSearchRequest,
 } from './types';
 import { BasicPriceInfo } from '../models/basic-price-info';
 import { EquityKeyStats } from '../models/equity-key-stats';
 import { EquityEarningsInfo } from '../models/equity-earnings-info';
+import { News } from '../models/news';
 
 const API_BASE_URL = 'http://localhost:5002';
 
@@ -43,6 +45,15 @@ export async function getMovers(): Promise<MoversResponse> {
     url: '/movers',
     method: 'GET',
     timeout: 5000,
+  });
+  return response.data;
+}
+
+export async function getNews(data: NewsSearchRequest): Promise<News[]> {
+  const response = await instance.request({
+    url: '/search-news',
+    method: 'POST',
+    data,
   });
   return response.data;
 }
