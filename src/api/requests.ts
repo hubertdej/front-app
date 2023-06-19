@@ -10,6 +10,8 @@ import {
   TickerSearchRequest,
   TickerSearchResponse,
   NewsSearchRequest,
+  FinancialStatementRequest,
+  FinancialStatement,
 } from './types';
 import { BasicPriceInfo } from '../models/basic-price-info';
 import { EquityKeyStats } from '../models/equity-key-stats';
@@ -61,6 +63,16 @@ export async function getNews(data: NewsSearchRequest): Promise<News[]> {
 export async function getTickerDetails(data: TickerDetailsRequest): Promise<TickerDetailsResponse> {
   const response = await instance.request({
     url: '/details',
+    method: 'POST',
+    data,
+    timeout: 10000,
+  });
+  return response.data;
+}
+
+export async function getFinancialStatement(data: FinancialStatementRequest): Promise<FinancialStatement> {
+  const response = await instance.request({
+    url: '/get-financial-statement',
     method: 'POST',
     data,
     timeout: 10000,

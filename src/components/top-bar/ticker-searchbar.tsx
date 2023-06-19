@@ -11,19 +11,40 @@ function TickerSearchbar() {
   return (
     <Autosuggest
       onChange={({ detail }) => setQuery(detail.value)}
-      onSelect={({ detail }) => navigate(`/stock/${detail.value}`)}
+      onSelect={({ detail }) => navigate(`/${detail.selectedOption?.labelTag == 'Financials' ? 'financials' : 'stock'}/${detail.value}`)}
       onLoadItems={async ({ detail }) => {
         const resultsByCategories = await fetchTickers(detail.filteringText);
-        setOptions(
-          Object.entries(resultsByCategories).map<AutosuggestProps.OptionGroup>(([category, results]) => ({
-            label: category,
-            options: results.map<AutosuggestProps.Option>(({ symbol, name }) => ({
-              label: name,
-              value: symbol,
-              tags: [symbol],
-            })),
-          })),
-        );
+        const resultOptions = Object.entries(resultsByCategories).map<AutosuggestProps.OptionGroup>(([category, results]) => {
+          if (category === 'Equities') {
+            return {
+              label: category,
+              options: results.flatMap<AutosuggestProps.Option>(({ symbol, name }) => [
+                {
+                  label: `${name}`,
+                  labelTag: 'Overview',
+                  value: symbol,
+                  tags: [symbol],
+                },
+                {
+                  label: `${name}`,
+                  labelTag: 'Financials',
+                  value: symbol,
+                  tags: [symbol],
+                },
+              ]),
+            };
+          } else {
+            return {
+              label: category,
+              options: results.map<AutosuggestProps.Option>(({ symbol, name }) => ({
+                label: name,
+                value: symbol,
+                tags: [symbol],
+              })),
+            };
+          }
+        });
+        setOptions(resultOptions);
       }}
       value={query}
       options={options}

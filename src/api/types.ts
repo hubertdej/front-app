@@ -34,5 +34,7 @@ export type EquityEarningsInfoResponse = EquityEarningsInfo | null;
 export type MoversResponse = { gainers: Mover[], losers: Mover[] };
 
 export type TickerDetailsRequest = { tickers: string[] };
+export type FinancialStatementRequest = { ticker: string, statement: string };
 
 export type TickerDetailsResponse = TickerDetails[];
+export type FinancialStatement = { [index: string]: { [period: string]: number } };
