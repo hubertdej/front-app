@@ -9,6 +9,7 @@ import { loader as dashboardLoader } from './pages/dashboard/index';
 import DummyPage from './pages/dummy-page';
 import MarketOverview from './pages/market-overview';
 import MarketMovers from './pages/market-movers';
+import MarketNews from './pages/market-news';
 import Watchlist from './pages/watchlist';
 import EquityOverview from './pages/equity-overview';
 
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/news',
-        element: <DummyPage />,
+        element: <MarketNews />,
       },
       {
         path: '/movers',
