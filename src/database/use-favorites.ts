@@ -15,6 +15,10 @@ export async function deleteFavorites(tickers: string[]) {
   await favoritesTable.bulkDelete(tickers);
 }
 
+export function useIsFavorite(ticker: string): boolean {
+  return useLiveQuery(() => favoritesTable.get(ticker), [ticker]) !== undefined;
+}
+
 export function useFavorites(): Favorite[] {
   const favoriteTickers = useLiveQuery(() => favoritesTable.toArray(), [], []);
   const tickerDetails = useTickerDetails(favoriteTickers);

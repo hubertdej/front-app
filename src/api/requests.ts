@@ -4,13 +4,11 @@ import {
   BarResponse,
   EquityDetailsResponse,
   EquityNewsResponse,
-  TickerSearchRequest,
-  TickerSearchResponse,
   MoversResponse,
   TickerDetailsRequest,
   TickerDetailsResponse,
   TickerSearchRequest,
-  TickerSearchResponse
+  TickerSearchResponse,
 } from './types';
 import { BasicPriceInfo } from '../models/basic-price-info';
 import { EquityKeyStats } from '../models/equity-key-stats';

@@ -1,6 +1,5 @@
 import { useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
-import { ColumnLayout, SpaceBetween } from '@cloudscape-design/components';
-import './index.css';
+import { AppLayout, BreadcrumbGroup, ColumnLayout, ContentLayout, SpaceBetween } from '@cloudscape-design/components';
 import OverviewHeader from './overview-header';
 import ChartContainer from './chart/ChartContainer';
 import CompanyDescription from './company-description';
@@ -19,11 +18,13 @@ import { EquityKeyStats } from '../../models/equity-key-stats';
 import { fetchEquityKeyStats } from '../../api/fetch-equity-key-stats';
 import { fetchEquityEarningsInfo } from '../../api/fetch-equity-earnings-info';
 import { EquityEarningsInfo } from '../../models/equity-earnings-info';
+import './index.css';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const ticker = params.ticker;
   return { ticker };
 }
+
 const EquityOverviewContent = ( props: { ticker: string }) => {
   const ticker = props.ticker;
   const [equityDetails, setEquityDetails] = useState<EquityDetails | null>(null);
@@ -52,12 +53,12 @@ const EquityOverviewContent = ( props: { ticker: string }) => {
   }, [ticker]);
 
   return (
-    <div key={ticker} style={{ padding: '10px 10px 10px 10px' }}>
-      <SpaceBetween size={'xs'}>
-        <OverviewHeader equityDetails={equityDetails} basicPriceInfo={basicPriceInfo} ticker={ticker}/>
+    <ContentLayout>
+      <SpaceBetween size={'m'}>
+        <OverviewHeader equityDetails={equityDetails} basicPriceInfo={basicPriceInfo} ticker={props.ticker}/>
         <ColumnLayout columns={2}>
           <ChartContainer ticker={ticker} basicPriceInfo={basicPriceInfo}/>
-          <SpaceBetween size={'xs'}>
+          <SpaceBetween size={'m'}>
             <CompanyDescription equityDetails={equityDetails}/>
             <KeyData equityKeyStats={equityKeyStats}/>
             <ColumnLayout columns={2}>
@@ -68,14 +69,38 @@ const EquityOverviewContent = ( props: { ticker: string }) => {
         </ColumnLayout>
         <News news={equityNews}/>
       </SpaceBetween>
-    </div>
+    </ContentLayout>
   );
 };
+
+function EquityOverviewContentAppLayout(props: { ticker: string }) {
+  return (
+    <AppLayout
+      breadcrumbs={
+        <BreadcrumbGroup
+          items={[
+            { text: 'App', href: '/' },
+            { text: props.ticker, href: `/stock/${props.ticker}` },
+          ]}
+          expandAriaLabel="Show path"
+          ariaLabel="Breadcrumbs"
+        />
+      }
+      contentType="cards"
+      content={
+        <EquityOverviewContent ticker={props.ticker}/>
+      }
+      navigationHide={true}
+      toolsHide={true}
+    />
+  );
+}
+
 function EquityOverview() {
   const { ticker } = useLoaderData() as { ticker: string };
   return (
     <div key={ticker}>
-      <EquityOverviewContent ticker={ticker}/>
+      <EquityOverviewContentAppLayout ticker={ticker}/>
     </div>
   );
 }

@@ -1,22 +1,39 @@
-import { ColumnLayout, Container, Header, SpaceBetween } from '@cloudscape-design/components';
+import { Button, ColumnLayout, Container, Header, SpaceBetween } from '@cloudscape-design/components';
 import Flag from 'react-flagkit';
 import Box from '@cloudscape-design/components/box';
 import { EquityDetails } from '../../models/equity-details';
 import { BasicPriceInfo } from '../../models/basic-price-info';
 import { getPriceChange, getPriceChangePercentage, prettyNumber } from './utilities';
+import { addFavorite, deleteFavorites, useIsFavorite } from '../../database/use-favorites';
 
 function OverviewHeader(props: { equityDetails: EquityDetails | null, basicPriceInfo: BasicPriceInfo | null, ticker: string } ) {
   const equityDetails = props.equityDetails;
   const basicPriceInfo = props.basicPriceInfo;
   const priceChange = getPriceChange(basicPriceInfo?.price, basicPriceInfo?.previousClose);
   const priceChangePercentage = getPriceChangePercentage(basicPriceInfo?.price, basicPriceInfo?.previousClose);
+  const isFavorite = useIsFavorite(props.ticker);
   return (
-    <Container header={
-      <Header variant="h2">
-        <SpaceBetween direction={'horizontal'} size='xxs' >
-          {equityDetails?.name} <Flag country={'US'} /> <span className={'small-gray-text'}>{equityDetails?.market}</span>
-        </SpaceBetween>
-      </Header>}
+    <Container
+      header={
+        <Header variant="h2" actions={
+          <Button iconName='heart' variant={isFavorite ? 'primary' : 'normal'} onClick={() => {
+            if (isFavorite) {
+              deleteFavorites([props.ticker]);
+            } else {
+              addFavorite(props.ticker);
+            }
+          }
+          }
+          >
+            Add to favorites
+          </Button>
+        }
+        >
+          <SpaceBetween direction={'horizontal'} size='xxs' >
+            {equityDetails?.name} <Flag country={'US'} /> <span className={'small-gray-text'}>{equityDetails?.market}</span>
+          </SpaceBetween>
+        </Header>}
+
     >
       <ColumnLayout columns={4} variant="text-grid">
         <div>
